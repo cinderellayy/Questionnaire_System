@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+            http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+<!-- 定义数据源 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+    	<property name="driverClass"  value="com.mysql.jdbc.Driver"></property>
+    	<property name="jdbcUrl"  value="jdbc:mysql://127.0.0.1:3306/Questionnaire_System"></property>
+    	<property name="user" value="root"></property>
+    	<property name="password" value="174151"></property>
+    	<property name="maxPoolSize" value="40"></property>
+    	<property name="minPoolSize" value="5"></property>
+    	<property name="initialPoolSize" value="5"></property>
+    	<property name="maxIdleTime" value="20"></property>
+    </bean>
+    
+    <!-- 定义 sessionFactory-->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+    	<property name="dataSource" ref="dataSource"/>
+    	<property name="mappingResources">
+    		<list>
+<!--     			<value>com/agzdjy/model/Blog.hbm.xml</value> -->
+<!--     			<value>com/agzdjy/model/Comment.hbm.xml</value> -->
+<!--     			<value>com/agzdjy/model/User.hbm.xml</value> -->
+    		</list>
+    	</property>
+    	
+    	<property name="hibernateProperties">
+    		<value>
+    			hibernate.dialect=org.hibernate.dialect.MySQLDialect
+    			hibernate.hbm2ddl.auto=update
+    		  <!-- hibernate.show_sql=true -->  
+    		</value>
+    	</property>
+    </bean>
+    
+    <!-- 定义事物管理器 -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <!-- 定义全局的代理-->
+    <bean id="transactionBase" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" lazy-init="true" abstract="true">
+    <!-- 配置事物管理器 -->
+    	<property name="transactionManager" ref="transactionManager"/>
+    	<!-- 配置事物属性 -->
+    	<property name="transactionAttributes">
+    		<props>
+    			<prop key="*">PROPAGATION_REQUIRED</prop>
+    		</props>
+    	</property>
+    </bean>
+    
+    <!-- 定义工具 -->
+    
+    <!-- 定义DaoTarger-->
+    
+    <!-- 定义Dao -->
+    
+    <!-- 定义servie -->
+    
+    <!-- 定义action -->
+    
+ 
+   
+   
+   
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
