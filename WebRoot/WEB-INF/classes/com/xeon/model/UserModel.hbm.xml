@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping 
+	package="com.xeon.model">
+	<class name="UserModel" table="poll_user" dynamic-insert="true" dynamic-update="true">
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		
+		<property name="username" type="string" not-null="true" unique="true"/>
+		<property name="password" type="string" not-null="true"/>
+		<property name="role" type="string" not-null="true"/>
+ 		<property name="sex" type="string" not-null="true"/>
+		<property name="nation" type="string" not-null="true"/>
+		<property name="exist" type="boolean">
+			<column name="exist" not-null="true" default="false"/>
+		</property>
+	</class>
+</hibernate-mapping>

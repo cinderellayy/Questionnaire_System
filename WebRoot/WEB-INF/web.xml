@@ -23,6 +23,16 @@
   	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
   
+  <servlet>
+    <servlet-name>VerificServlet</servlet-name>
+    <servlet-class>com.xeon.action.VerificServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>VerificServlet</servlet-name>
+    <url-pattern>/VerificServlet</url-pattern>
+  </servlet-mapping>
+  
   <welcome-file-list>
     <welcome-file>login.html</welcome-file>
   </welcome-file-list>

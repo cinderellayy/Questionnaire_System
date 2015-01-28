@@ -1,0 +1,22 @@
+.page-header {
+    background-color: #607D8B;
+    margin-top: 0;
+    padding: 20px 20px 20px 40px;
+}
+.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
+    color: #ffffff;
+    font-size: 36pt;
+    text-decoration: none;
+}
+.page-header a {
+    color: #ffffff;
+    font-size: 18pt;
+    left: 100px
+    /*text-decoration: none;*/
+}
+
+.page-header p {
+    color: #ffffff;
+    font-size: 18pt;
+    /*text-decoration: none;*/
+}

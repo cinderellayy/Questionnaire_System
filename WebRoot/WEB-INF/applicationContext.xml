@@ -24,9 +24,11 @@
     	<property name="dataSource" ref="dataSource"/>
     	<property name="mappingResources">
     		<list>
-<!--     			<value>com/agzdjy/model/Blog.hbm.xml</value> -->
-<!--     			<value>com/agzdjy/model/Comment.hbm.xml</value> -->
-<!--     			<value>com/agzdjy/model/User.hbm.xml</value> -->
+	    		<value>com/xeon/model/UserModel.hbm.xml</value>
+	    		<value>com/xeon/model/PollModel.hbm.xml</value>
+	    		<value>com/xeon/model/QuestionModel.hbm.xml</value>
+	    		<value>com/xeon/model/OptionModel.hbm.xml</value>
+	    		<value>com/xeon/model/AnswerModel.hbm.xml</value>
     		</list>
     	</property>
     	
@@ -34,7 +36,7 @@
     		<value>
     			hibernate.dialect=org.hibernate.dialect.MySQLDialect
     			hibernate.hbm2ddl.auto=update
-    		  <!-- hibernate.show_sql=true -->  
+    		    hibernate.show_sql=true 
     		</value>
     	</property>
     </bean>
@@ -57,15 +59,30 @@
     </bean>
     
     <!-- 定义工具 -->
-    
+    <bean id="util" class="com.xeon.util.impl.UtilImpl"></bean>
     <!-- 定义DaoTarger-->
+    <bean id="userDaoTarger" class="com.xeon.dao.impl.UserDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
     
     <!-- 定义Dao -->
+    <bean id="userDao" parent="transactionBase">
+    	<property name="target" ref="userDaoTarger"/>
+    </bean>
     
     <!-- 定义servie -->
+    <bean id="logService" class="com.xeon.service.impl.LogServiceImpl">
+    	<property name="userDao" ref="userDao"/>
+    	<property name="util" ref="util"/>
+    </bean>
     
     <!-- 定义action -->
-    
+    <bean id="LogAction" class="com.xeon.action.LogAction">
+    	<property name="logService" ref="logService"/>
+    </bean>
+    <bean id="msgAction" class="com.xeon.action.MessageAction">
+    	<property name="util" ref="util"/>
+    </bean>
  
    
    

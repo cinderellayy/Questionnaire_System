@@ -1,17 +1,60 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>大连民族学院问卷系统</title>
-	
-    <meta name="keywords" content="keyword1,keyword2,keyword3">
-    <meta name="description" content="this is my page">
-    <meta name="content-type" content="text/html; charset=UTF-8">
-    
-    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
 
-  </head>
-  
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>大连民族学院问卷系统</title>
+    <link href="http://v3.bootcss.com/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="http://v3.bootcss.com/examples/signin/signin.css" rel="stylesheet">
+   <!--  <script type="text/javascript">
+    window.onload=function(){
+        var verifyObj = document.getElementById("Verify");
+        verifyObj.onclick=function(){
+            this.src="image.do?timestamp="+new Date().getTime();
+        };
+    };
+  	  function getServiceErrorMsg(){
+		var request = new XMLHttpRequest();
+		request.open("GET","message.action");
+		request.onreadystatechange = function(){
+			if(request.readyState == 4 && request.status == 200){
+				var txt = eval(request.responseText);
+				if(txt != null){
+					alert(txt);
+					//window.history.go(-1);
+					//window.top.location="./login.html"
+				}
+			}
+		}
+		request.send(null);
+	}
+  	  
+  	  //为了第一次加载的时候不出现提示
+  	  function checkInformation(){
+  		var urlReg=new RegExp(/(\/login.action)/);//编写正则规则  
+  		var url = document.URL;
+  		var flag=!!url.match(urlReg);//这个是啥意思
+  		if(flag){
+  			getServiceErrorMsg();
+  		 }
+  	  }
+</script> -->
+  </head> 
   <body>
-    This is my HTML page. <br>
+    <div class="container">
+      <form class="form-signin" action="login.action" method="post">
+            <img class="form-signin-heading" src="./statics/picture/other/logo.jpg">
+            <input type="text" name="username" class="form-control" placeholder="账户名" required autofocus>
+            <input type="password" name="password" class="form-control" placeholder="密码" required> 
+            <input type="text" name="verifycode" placeholder="验证码" required/>
+            <img src="VerificServlet" id="verify" style="cursor:hand;"/><a href="javascript:newpicture()">看不清</a>
+            <label class="checkbox">
+              <input type="checkbox" value="remember-me"> 记住密码
+            </label>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="return check()">登入</button>
+        </form>
+    </div>
   </body>
+  <script type="text/javascript" src="./statics/js/jQuery/jquery.js"></script>
+  <script type="text/javascript" src="./statics/js/other/login.js"></script>
 </html>

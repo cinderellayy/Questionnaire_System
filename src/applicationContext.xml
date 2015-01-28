@@ -24,17 +24,19 @@
     	<property name="dataSource" ref="dataSource"/>
     	<property name="mappingResources">
     		<list>
-<!--     			<value>com/agzdjy/model/Blog.hbm.xml</value> -->
-<!--     			<value>com/agzdjy/model/Comment.hbm.xml</value> -->
-<!--     			<value>com/agzdjy/model/User.hbm.xml</value> -->
+	    		<value>com/xeon/model/UserModel.hbm.xml</value>
+	    		<value>com/xeon/model/PollModel.hbm.xml</value>
+	    		<value>com/xeon/model/QuestionModel.hbm.xml</value>
+	    		<value>com/xeon/model/OptionModel.hbm.xml</value>
+	    		<value>com/xeon/model/AnswerModel.hbm.xml</value>
     		</list>
     	</property>
     	
     	<property name="hibernateProperties">
     		<value>
     			hibernate.dialect=org.hibernate.dialect.MySQLDialect
-    			hibernate.hbm2ddl.auto=create
-    		  <!-- hibernate.show_sql=true -->  
+    			hibernate.hbm2ddl.auto=update
+    		    hibernate.show_sql=true 
     		</value>
     	</property>
     </bean>
@@ -57,11 +59,15 @@
     </bean>
     
     <!-- 定义工具 -->
-    
+    <bean id="util" class="com.xeon.util.impl.UtilImpl"></bean>
     <!-- 定义DaoTarger-->
-    
+    <bean id="userDaoTarger" class="com.xeon.dao.impl.UserDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
     <!-- 定义Dao -->
-    
+    <bean id="userDao" parent="transactionBase">
+    	<property name="target" ref="userDaoTarger"/>
+    </bean>
     <!-- 定义servie -->
     
     <!-- 定义action -->

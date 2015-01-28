@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping 
+	package="com.xeon.model">
+	<class name="AnswerModel" table="poll_answer" dynamic-insert="true" dynamic-update="true">
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		
+		<property name="ip" type="string" not-null="true"/>
+		<many-to-one name="userModel" class="UserModel">
+			<column name="user_id"/>
+		</many-to-one>
+		
+		<many-to-one name="pollModel" class="PollModel">
+			<column name="poll_id"/>
+		</many-to-one>
+	</class>
+</hibernate-mapping>

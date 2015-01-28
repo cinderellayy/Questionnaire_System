@@ -6,7 +6,55 @@
 	<!-- 制定国际化编码 -->
 		<constant name="struts.i18n.encoding" value="UTF-8"></constant>
 		<package name="agzdjy" extends="json-default">
-			<action name="login" class="LogAction" method="login"></action>
+			<!-- 配置自定义拦截器栈 -->
+			<interceptors>
+			 	<interceptor name="loginFilterForAdmin" class="com.xeon.filter.LoginFilterForAdmin"/>
+			 	<interceptor name="loginFilterForStudent" class="com.xeon.filter.LoginFilterForStudent"/>
+			 	<interceptor name="loginFilterForTeacher" class="com.xeon.filter.LoginFilterForTeacher"/>
+			 	<interceptor name="clear" class="com.xeon.filter.ClearFilter"/>
+			 	<interceptor-stack name="filterForAdmin">
+			 	 	<interceptor-ref name="defaultStack"/>
+			 		<interceptor-ref name="loginFilterForAdmin"/>
+			 		<interceptor-ref name="clear"/>
+			 	</interceptor-stack>
+			 	<interceptor-stack name="filterForStudent">
+			 	 	<interceptor-ref name="defaultStack"/>
+			 		<interceptor-ref name="loginFilterForStudent"/>
+			 		<interceptor-ref name="clear"/>
+			 	</interceptor-stack>
+			 	<interceptor-stack name="filterForTeacher">
+			 	 	<interceptor-ref name="defaultStack"/>
+			 		<interceptor-ref name="loginFilterForTeacher"/>
+			 		<interceptor-ref name="clear"/>
+			 	</interceptor-stack>
+			 	<interceptor-stack name="mydefault">
+			 		<interceptor-ref name="defaultStack"/>
+			 		<interceptor-ref name="clear"/>
+			 	</interceptor-stack>
+			 </interceptors>
+			 
+			<!-- 定义全局返回结果 -->
+			 <global-results>
+			 	<result name="login">/login.html</result>
+			 	<result name="logout">/login.html</result>
+			 	<result name="error">/error.html</result>
+			 </global-results>
+			 
+			 <!-- 定义action -->
+			<action name="login" class="LogAction" method="login">
+				<result>/statics/html/first/${msg}.html</result>
+				<interceptor-ref name="mydefault"/>
+			</action>
 			<action name="logout" class="LogAction" method="logout"></action>
+			
+			<!-- 获取存在session中msg的信息也就是错误提示信息 -->
+			<action name="msg" class="msgAction">
+				<result type="json">
+					<param name="noCache">true</param>
+					<param name="contentType">text/html</param>
+					<param name="root">msg</param>
+				</result>
+				<interceptor-ref name="mydefault"/>
+			</action>
 		</package>
 	</struts>
