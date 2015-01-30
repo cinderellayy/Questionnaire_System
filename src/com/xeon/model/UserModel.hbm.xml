@@ -9,11 +9,16 @@
 			<generator class="native"/>
 		</id>
 		
-		<property name="username" type="string" not-null="true" unique="true"/>
+		<property name="account" type="string" not-null="true" unique="true"/>
+		<property name="username" type="string" not-null="true"/>
 		<property name="password" type="string" not-null="true"/>
-		<property name="role" type="string" not-null="true"/>
+		<property name="college" type="string" not-null="true"/>
+		<property name="professional" type="string" not-null="true"/>
+		<property name="grade" type="string" not-null="true"/>
+		<property name="student_class" type="string" not-null="true"/>
  		<property name="sex" type="string" not-null="true"/>
 		<property name="nation" type="string" not-null="true"/>
+		<property name="role" type="string" not-null="true"/>
 		<property name="exist" type="boolean">
 			<column name="exist" not-null="true" default="false"/>
 		</property>

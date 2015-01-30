@@ -15,6 +15,9 @@ public class OptionModel implements Comparable<OptionModel>{
 	private int option_count;
 	private QuestionModel questionModel;
 	private boolean exist;
+	public OptionModel(){
+		this.option_count = 0;
+	}
 	public int getId() {
 		return id;
 	}

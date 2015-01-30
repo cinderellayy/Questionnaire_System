@@ -26,8 +26,8 @@ public class MessageAction {
 	}
 	public String execute(){
 		HttpSession session = getUtil().getSession();
-		setMsg((String)session.getAttribute("MSG"));
-		System.out.println(getMsg());
+		setMsg((String)session.getAttribute("SESSION_LOG_MSG"));
+		session.removeAttribute("SESSION_LOG_MSG");//一次请求之后立即清空此次登陆相关的提示信息
 		return Action.SUCCESS;
 	}
 }

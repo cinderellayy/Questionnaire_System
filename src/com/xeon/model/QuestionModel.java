@@ -25,6 +25,9 @@ public class QuestionModel implements Comparable<QuestionModel>{
 	private boolean exist;
 	private PollModel pollModel;
 	private SortedSet<OptionModel> optionModel = new TreeSet<OptionModel>();
+	public QuestionModel(){
+		this.question_can_choise_count = 1;
+	}
 	public int getId() {
 		return id;
 	}

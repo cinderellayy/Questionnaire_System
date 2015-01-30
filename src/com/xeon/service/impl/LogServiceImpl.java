@@ -34,32 +34,37 @@ public class LogServiceImpl implements LogService{
 	}
 
 	@Override
-	public String login(String username, String password, String verifycode) {
+	public String login(String account, String password, String verifycode) {
 		// TODO Auto-generated method stub
 		HttpSession session = getUtil().getSession();
-		//if(verifycode.equals(session.))
 		try{
-			if(!verifycode.equals(session.getAttribute("VERIFYCODE"))){
-				session.setAttribute("MSG", "验证码错误");
-				//System.out.println("验证码");
+			if(account == null || password == null || verifycode == null || session.getAttribute("VERIFYCODE") == null){
+				session.setAttribute("SESSION_LOG_MSG", "没有登陆");
 				return "fail";
 			}
-			UserModel user = userDao.getFromUsername(username);
+			if(!verifycode.equals(session.getAttribute("VERIFYCODE"))){
+				session.setAttribute("SESSION_LOG_MSG", "验证码错误");
+				return "fail";
+			}
+			UserModel user = userDao.getFromAccount(account);
 			if(user != null){
 				if(user.getPassword().equals(password)){
-					//session.setAttribute("MSG", "登陆成功");
-					return user.getRole();
+					String role = user.getRole();
+					session.setAttribute("LOGIN", true);
+					session.setAttribute("ROLE", role);
+					session.setAttribute("USER",user);
+					return role;
 				}
-				session.setAttribute("MSG", "密码错误");
+				session.setAttribute("SESSION_LOG_MSG", "密码错误");
 				//System.out.println("密码");
 				return "fail";
 			}
-			session.setAttribute("MSG", "用户名错误");
+			session.setAttribute("SESSION_LOG_MSG", "用户名错误");
 			//System.out.println("用户民");
 			return "fail";
 		}catch(Exception e){
 			e.printStackTrace();
-			session.setAttribute("MSG", "Dao层错误，请联系开发者");
+			session.setAttribute("SESSION_LOG_MSG", "Dao层错误，请联系开发者");
 			return "error";
 		}
 	}

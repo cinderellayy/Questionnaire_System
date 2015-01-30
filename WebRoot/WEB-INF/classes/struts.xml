@@ -13,23 +13,23 @@
 			 	<interceptor name="loginFilterForTeacher" class="com.xeon.filter.LoginFilterForTeacher"/>
 			 	<interceptor name="clear" class="com.xeon.filter.ClearFilter"/>
 			 	<interceptor-stack name="filterForAdmin">
-			 	 	<interceptor-ref name="defaultStack"/>
-			 		<interceptor-ref name="loginFilterForAdmin"/>
 			 		<interceptor-ref name="clear"/>
+			 		<interceptor-ref name="loginFilterForAdmin"/>
+			 		<interceptor-ref name="defaultStack"/>
 			 	</interceptor-stack>
 			 	<interceptor-stack name="filterForStudent">
-			 	 	<interceptor-ref name="defaultStack"/>
-			 		<interceptor-ref name="loginFilterForStudent"/>
 			 		<interceptor-ref name="clear"/>
+			 		<interceptor-ref name="loginFilterForStudent"/>
+			 	 	<interceptor-ref name="defaultStack"/>
 			 	</interceptor-stack>
 			 	<interceptor-stack name="filterForTeacher">
-			 	 	<interceptor-ref name="defaultStack"/>
-			 		<interceptor-ref name="loginFilterForTeacher"/>
 			 		<interceptor-ref name="clear"/>
+			 		<interceptor-ref name="loginFilterForTeacher"/>
+			 	 	<interceptor-ref name="defaultStack"/>
 			 	</interceptor-stack>
 			 	<interceptor-stack name="mydefault">
-			 		<interceptor-ref name="defaultStack"/>
 			 		<interceptor-ref name="clear"/>
+			 		<interceptor-ref name="defaultStack"/>
 			 	</interceptor-stack>
 			 </interceptors>
 			 
@@ -38,23 +38,67 @@
 			 	<result name="login">/login.html</result>
 			 	<result name="logout">/login.html</result>
 			 	<result name="error">/error.html</result>
+			 	<result name="role_error">/roleError.html</result>
 			 </global-results>
 			 
 			 <!-- 定义action -->
+			 <!-- 定义各用户首页 -->
+			 <action name="admin">
+			 	<result>/statics/html/first/admin.html</result>
+			 </action>
+			 <action name="teacher" >
+			 	<result>/statics/html/first/teacher.html</result>
+			 </action>
+			 <action name="student">
+			 	<result>/statics/html/first/student.html</result>
+			 </action>
+			 
+			 <!-- 登陆功能，返回响应权限用户首页 -->
 			<action name="login" class="LogAction" method="login">
-				<result>/statics/html/first/${msg}.html</result>
 				<interceptor-ref name="mydefault"/>
+				<result name="admin" type="redirectAction">
+					<param name="actionName">admin</param>
+				</result>
+				<result name="teacher" type="redirectAction">
+					<param name="actionName">teacher</param>
+				</result>
+				<result name="student" type="redirectAction">
+					<param name="actionName">student</param>
+				</result>
 			</action>
 			<action name="logout" class="LogAction" method="logout"></action>
 			
-			<!-- 获取存在session中msg的信息也就是错误提示信息 -->
-			<action name="msg" class="msgAction">
+			<!-- 管理员管理用户 -->
+			<action name="*user" class="adminAction" method="{1}User">
+				<interceptor-ref name="filterForAdmin"/>
+				<result name="register">/statics/html/admin/register.html</result>
+				<!-- 操作成功之后返回的是用户管理页面 -->
+				<!-- 还是添加成功之后继续留在添加页面 -->
+				<!-- 返回给页面的提示信息 -->
 				<result type="json">
 					<param name="noCache">true</param>
 					<param name="contentType">text/html</param>
 					<param name="root">msg</param>
 				</result>
+				<!-- <result>/statics/html/admin/user.html</result> -->
+				<!-- <result name=""></result> -->
+			</action>
+			
+			<!-- 管理员功能的跳转 -->
+			<action name="admin*" class="com.xeon.action.JumpAction" method="admin{1}">
+				<interceptor-ref name="filterForAdmin"/>
+				<!-- 用于管理员的跳转 -->
+				<result name="admin">/statics/html/admin/${logicView}.html</result>
+			</action>
+			
+			<!-- 获取存在session中msg的信息也就是错误提示信息 -->
+			<action name="msg" class="msgAction">
 				<interceptor-ref name="mydefault"/>
+				<result type="json">
+					<param name="noCache">true</param>
+					<param name="contentType">text/html</param>
+					<param name="root">msg</param>
+				</result>
 			</action>
 		</package>
 	</struts>

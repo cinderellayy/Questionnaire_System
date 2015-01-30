@@ -64,24 +64,41 @@
     <bean id="userDaoTarger" class="com.xeon.dao.impl.UserDaoImpl">
     	<property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    <!-- adminUserDaoTarger -->
+    <bean id="adminUserDaoTarger" class="com.xeon.dao.impl.AdminOfUserDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
     
     <!-- 定义Dao -->
     <bean id="userDao" parent="transactionBase">
     	<property name="target" ref="userDaoTarger"/>
     </bean>
+    <bean id="adminUserDao" parent="transactionBase">
+    	<property name="target" ref="adminUserDaoTarger"/>
+    </bean>
     
     <!-- 定义servie -->
+    <!-- 登陆相关 -->
     <bean id="logService" class="com.xeon.service.impl.LogServiceImpl">
     	<property name="userDao" ref="userDao"/>
     	<property name="util" ref="util"/>
     </bean>
-    
+    <!-- 管理员管理用户服务 -->
+    <bean id="adminUserService" class="com.xeon.service.impl.AdminOfUserServiceImpl">
+    	<property name="adminUserDao" ref="adminUserDao"/>
+    </bean>
     <!-- 定义action -->
-    <bean id="LogAction" class="com.xeon.action.LogAction">
+    <!-- 登陆相关 -->
+    <bean id="LogAction" class="com.xeon.action.LogAction" scope="prototype">
     	<property name="logService" ref="logService"/>
     </bean>
-    <bean id="msgAction" class="com.xeon.action.MessageAction">
+    <!-- 消息相关 -->
+    <bean id="msgAction" class="com.xeon.action.MessageAction" scope="prototype">
     	<property name="util" ref="util"/>
+    </bean>
+    <!-- 管理员管理用户相关 -->
+    <bean id="adminAction" class="com.xeon.action.AdminAction" scope="prototype">
+    	<property name="adminUserService" ref="adminUserService"/>
     </bean>
  
    

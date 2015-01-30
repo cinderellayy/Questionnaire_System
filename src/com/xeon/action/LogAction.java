@@ -6,20 +6,20 @@ import com.xeon.service.LogService;
  * 
  * @author Agzdjy
  * @param username password verifycode 与前端对应
- * @param msg 用于返回逻辑视图的
+ * @param logicView 用于返回逻辑视图的
  *
  */
 public class LogAction {
-	private String username;
+	private String account;
 	private String password;
 	private String verifycode;
-	private String msg;
+	private String logicView;
 	private LogService logService;
-	public String getUsername() {
-		return username;
+	public String getAccount() {
+		return account;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setAccount(String account) {
+		this.account = account;
 	}
 	public String getPassword() {
 		return password;
@@ -33,11 +33,11 @@ public class LogAction {
 	public void setVerifycode(String verifycode) {
 		this.verifycode = verifycode;
 	}
-	public String getMsg() {
-		return msg;
+	public String getLogicView() {
+		return logicView;
 	}
-	public void setMsg(String msg) {
-		this.msg = msg;
+	public void setLogicView(String logicView) {
+		this.logicView = logicView;
 	}
 	public LogService getLogService() {
 		return logService;
@@ -46,15 +46,18 @@ public class LogAction {
 		this.logService = logService;
 	}
 	public String login(){
-		String result = getLogService().login(getUsername(), getPassword(), getVerifycode());
-		setMsg(result);
-		//System.out.println(result);
+		String result = getLogService().login(getAccount(), getPassword(), getVerifycode());
+		setLogicView(result);
 		if(result.equals("fail")){
 			return Action.LOGIN;
 		}
 		if(result.equals("error")){
 			return Action.ERROR;
 		}
-		return Action.SUCCESS;
+		return result;
+	}
+	public String logout(){
+		getLogService().logout();
+		return Action.LOGIN;
 	}
 }

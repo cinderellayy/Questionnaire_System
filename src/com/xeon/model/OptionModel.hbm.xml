@@ -9,9 +9,7 @@
 			<generator class="native"/>
 		</id>
 		<property name="option_name" type="string" not-null="true"/>
-		<property name="option_count" type="integer">
-			<column name="option_count" not-null="true" length="12" default="0"/>
-		</property>
+		<property name="option_count" type="integer" not-null="true"/>
 		<property name="exist" type="boolean">
 			<column name="exist" not-null="true" default="false"/>
 		</property>

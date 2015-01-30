@@ -10,9 +10,7 @@
 		</id>
 		<property name="question_name" type="string" not-null="true" unique="true"/>
 		<property name="question_type" type="string" not-null="true"/>
-		<property name="question_can_choise_count"  type="integer">
-			<column name="can_count" not-null="true" default="1"/>
-		</property>
+		<property name="question_can_choise_count"  type="integer" not-null="true"/>
 		<property name="exist" type="boolean" not-null="true">
 			<column name="exist" not-null="true" default="false"/>
 		</property>

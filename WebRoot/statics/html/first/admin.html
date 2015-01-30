@@ -1,17 +1,47 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>admin.html</title>
-	
-    <meta name="keywords" content="keyword1,keyword2,keyword3">
-    <meta name="description" content="this is my page">
-    <meta name="content-type" content="text/html; charset=UTF-8">
-    
-    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
-
-  </head>
-  
-  <body>
-    This is my HTML page. <br>
-  </body>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>大连民族学院问卷系统</title>
+		<link href="http://v3.bootcss.com/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="http://v3.bootcss.com/examples/offcanvas/offcanvas.css" rel="stylesheet">
+	    <!-- <link rel="stylesheet" href="./statics/css/style.css"/> -->
+	</head>
+	 <body>
+	  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="navbar-header">
+			<img src="./statics/picture/other/logo.jpg" alt="大连民族学院" class="navbar-left">
+		</div>
+	</div>
+		<div class="container">
+			<div class="jumbotron">
+				<table class="table table-hover" name="mytable">
+					<thead>
+						<tr>
+							<th>编号</th>
+							<th>问卷名</th>
+							<th>上传时间</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody id="mytbody"></tbody>
+				</table>
+			<p>
+				<a class="btn btn-lg btn-primary" href="adminPoll.action" role="button">问卷管理&raquo;</a>
+				<a class="btn btn-lg btn-primary" href="adminUser.action" role="button">用户管理&raquo;</a>
+				<a class="btn btn-lg btn-primary" href="adminAnswer.action" role="button">问卷分析&raquo;</a>
+				<a class="btn btn-lg btn-primary" href="logout.action" role="button">退出</a>
+			</p>
+			</div>
+			<footer>
+			 <p> Xeon工作室2014版</p>
+			</footer>
+		</div>
+		<!-- Bootstrap core JavaScript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		
+		<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+		<script src="http://v3.bootcss.com/dist/js/bootstrap.min.js"></script>
+		<script src="http://v3.bootcss.com/examples/offcanvas/offcanvas.js"></script> 
+	</body>
 </html>
