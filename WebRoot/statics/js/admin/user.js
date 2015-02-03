@@ -50,11 +50,15 @@ function getData(page) {
 		//遍历list_user数组
 		var body = "";
 		//each就是遍历
+		var sex = "男";
 		$.each(obj.list_user,function(i,item){
+				if(item.sex == "woman"){
+					sex = "女";
+				}
 				var tr = "<tr>";
 				var th1 = "<th>"+item.username+"</th>";
 				var th2 = "<th>"+item.account+"</th>";
-				var th3 = "<th>"+item.sex+"</th>";
+				var th3 = "<th>"+sex+"</th>";
 				var th4 = "<th>"+item.role+"</th>";
 				var th5 = "<th>"+item.college+"</th>";
 				var th6 = "<th>"+item.professional+"</th>";

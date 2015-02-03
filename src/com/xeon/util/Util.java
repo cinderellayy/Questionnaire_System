@@ -7,6 +7,7 @@ public interface Util {
 	public void clean();
 	public String MD5(String password);
 	public String encode(String result);
+	public String decode(String str);
 	public String sqlInsert(String str);
 	public boolean checkStr(String str);
 }

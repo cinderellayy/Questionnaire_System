@@ -117,6 +117,7 @@ function check() {
 	}
 	var updateUser = new userModel(user.id,$("#username").val(),user.account,password,user.role,$("#college").val(),$("#professional").val(),user.grade,$("#studentClass").val(),$("#nation").val(), $("#sex").val());
 	var jsonData =  $.toJSON(updateUser);
+	jsonData = encodeURI(jsonData);
 	$.ajax({
 		cache:false,
 		type:"POST",
@@ -130,7 +131,9 @@ function check() {
 			},
 		success: function(data) {
 			alert(data);
-			window.location.href = "adminUser.action";
+			if(data != "输入的数据不合法");{
+				window.location.href = "adminUser.action";
+			}
 		}
 	});
 	return false;

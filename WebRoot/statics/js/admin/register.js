@@ -11,6 +11,7 @@ function check() {
 		}
 	});
 	jsonData = jsonData+"}";
+	jsonData = encodeURI(jsonData);
 	$.ajax({
 		cache:false,
 		type:"POST",

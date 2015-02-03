@@ -110,7 +110,7 @@ public class AdminAction {
 		}
 		//利用gson将json数据封装成user类型的数据，传递给adminUserService服务类
 		//System.out.println(getJsonData().toString());
-		String result = getAdminUserService().saveUser(new Gson().fromJson(getJsonData(), User.class));
+		String result = getAdminUserService().saveUser(new Gson().fromJson(getUtil().decode(getJsonData()), User.class));
 		setMsg(result);
 		return Action.SUCCESS;
 	}
@@ -143,7 +143,7 @@ public class AdminAction {
 	}
 	//更新用户信息
 	public String updateUser(){
-		String result = getAdminUserService().updateUser(new Gson().fromJson(getJsonData(), UserModel.class));
+		String result = getAdminUserService().updateUser(new Gson().fromJson(getUtil().decode(getJsonData()), UserModel.class));
 		setMsg(result);
 		return Action.SUCCESS;
 	}
