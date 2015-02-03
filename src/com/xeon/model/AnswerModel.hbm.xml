@@ -10,6 +10,9 @@
 		</id>
 		
 		<property name="ip" type="string" not-null="true"/>
+		<property name="exist" type="boolean" not-null="true">
+			<column name="exist" not-null="true" default="false"/>
+		</property>
 		<many-to-one name="userModel" class="UserModel">
 			<column name="user_id"/>
 		</many-to-one>

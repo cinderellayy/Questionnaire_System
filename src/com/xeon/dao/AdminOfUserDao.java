@@ -10,11 +10,6 @@ public interface AdminOfUserDao {
 	public void update(UserModel user) throws Exception;
 	public UserModel getUserById(Integer id) throws Exception;
 	public UserModel getUserByAccount(String account) throws Exception;
-	public List<UserModel> getUserByUsername(String username) throws Exception;
-	public List<UserModel> getUserByNation(String nation) throws Exception;
-	public List<UserModel> getUserByCollege(String college) throws Exception;
-	public List<UserModel> getUserByGrade(String grade) throws Exception;
-	public List<UserModel> getUserByStudentClass(String studentClass) throws Exception;
-	public List<UserModel> getUserByRequirement(String[] data) throws Exception;//自动判断条件查找
-	public List<UserModel> getUser() throws Exception;
+	public List<UserModel> getUserByRequirement(final String[] data,int beginIndex,int endIndex) throws Exception;//自动判断条件查找
+	public List<UserModel> getUser(final int beginIndex,int endIndex) throws Exception;
 }

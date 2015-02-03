@@ -1,15 +1,13 @@
 package com.xeon.service;
 
-import java.util.List;
-
 import com.xeon.auxiliary.User;
 import com.xeon.model.UserModel;
 
 public interface AdminOfUserService {
-	public UserModel getUserById(Integer id);
-	public UserModel getUserByAccount(String account);
-	public List<UserModel> getUserByRequirement(String requirement,String data);//根据条件查找
-	public List<UserModel> getUser();
+	public String getUserById(Integer id);
+	public String getUserByAccount(String account);
+	public String getUserByRequirement(String requirement,String data,int page);//根据条件查找
+	public String getUser(int page);
 	public String deleteUserById(Integer id);
 	public String deleteUserByAccount(String account);
 	public String deleteUserByRequirement(String requirement,String data);//根据条件删除

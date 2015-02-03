@@ -6,6 +6,7 @@ public class User implements Comparable<User>{
 	private String account;
 	private String password;
 	private String nation;
+	
 	public String getUsername() {
 		return username;
 	}

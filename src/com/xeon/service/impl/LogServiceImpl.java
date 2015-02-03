@@ -48,7 +48,7 @@ public class LogServiceImpl implements LogService{
 			}
 			UserModel user = userDao.getFromAccount(account);
 			if(user != null){
-				if(user.getPassword().equals(password)){
+				if(getUtil().MD5(password).equals(user.getPassword())/*user.getPassword().equals(password)*/){
 					String role = user.getRole();
 					session.setAttribute("LOGIN", true);
 					session.setAttribute("ROLE", role);

@@ -21,7 +21,7 @@ public class test {
 		User user = g.fromJson(data1, User.class);
 		System.out.println(user.getUsername());*/
 		
-		Properties pod = new Properties();
+	/*	Properties pod = new Properties();
 		try {
 			String fileName = "/WEB-INF/collegeInformation.properties";
 			pod.load(User.class.getResourceAsStream("/collegeInformation.properties"));
@@ -46,5 +46,7 @@ public class test {
 			e.printStackTrace();
 		}
 		//System.out.println(JSONObject.fromObject(data).toString());
+*/
+	System.out.println((29/10)+1);	
 	}
 }

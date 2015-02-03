@@ -2,18 +2,15 @@
 function check() {
 	var data = $("#addUser").serializeArray();
 	var jsonData = "{";
-	alert(data.length);
 	$.each(data,function(i,filed){
 		if(i == data.length - 1){
 			jsonData = jsonData+"\""+filed.name+"\""+":"+"\""+filed.value+"\"";
-			alert("hahhah");
 		}
 		else{
 			jsonData = jsonData+"\""+filed.name+"\""+":"+"\""+filed.value+"\""+",";
 		}
 	});
 	jsonData = jsonData+"}";
-	alert(jsonData);
 	$.ajax({
 		cache:false,
 		type:"POST",

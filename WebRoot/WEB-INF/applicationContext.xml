@@ -68,6 +68,10 @@
     <bean id="adminUserDaoTarger" class="com.xeon.dao.impl.AdminOfUserDaoImpl">
     	<property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    <!-- answerDaoTarger -->
+    <bean id="answerDaoTarger" class="com.xeon.dao.impl.AnswerDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
     
     <!-- 定义Dao -->
     <bean id="userDao" parent="transactionBase">
@@ -75,6 +79,9 @@
     </bean>
     <bean id="adminUserDao" parent="transactionBase">
     	<property name="target" ref="adminUserDaoTarger"/>
+    </bean>
+    <bean id="answerDao" parent="transactionBase">
+    	<property name="target" ref="answerDaoTarger"/>
     </bean>
     
     <!-- 定义servie -->
@@ -86,6 +93,9 @@
     <!-- 管理员管理用户服务 -->
     <bean id="adminUserService" class="com.xeon.service.impl.AdminOfUserServiceImpl">
     	<property name="adminUserDao" ref="adminUserDao"/>
+    	<property name="userDao" ref="userDao"/>
+    	<property name="answerDao" ref="answerDao"/>
+    	<property name="util" ref="util"/>
     </bean>
     <!-- 定义action -->
     <!-- 登陆相关 -->

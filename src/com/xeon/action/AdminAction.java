@@ -15,12 +15,14 @@ import com.xeon.service.AdminOfUserService;
  * @param jsonData 前端发送的数据
  * @param logicView 返回的逻辑视图名
  * @param *Service 为管理员提供服务的接口,
+ * @param page 这个参数是用来获分页查询是的页码，采用get方式转递
  *
  */
 public class AdminAction {
 	private String jsonData;
 	private String  logicView;
 	private String msg;
+	private int page;
 	private AdminOfUserService adminUserService;
 	private AdminOfPollService adminPollService;
 	private AdminOfQuestionService adminQuestionService;
@@ -74,19 +76,32 @@ public class AdminAction {
 	public void setAdminAnswerService(AdminOfAnswerService adminAnswerService) {
 		this.adminAnswerService = adminAnswerService;
 	}
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	//添加用户
 	public String addUser(){
-		System.out.println("我在adminAction中，我工作了");
+		//System.out.println("我在adminAction中，我工作了");
 		if(getJsonData() == null){
 			setMsg("你可能重复提交了，导致录入失败，提示频繁刷新会导致重复提交");
 			return "register";
 		}
 		//利用gson将json数据封装成user类型的数据，传递给adminUserService服务类
-		System.out.println(getJsonData().toString());
+		//System.out.println(getJsonData().toString());
 		String result = getAdminUserService().saveUser(new Gson().fromJson(getJsonData(), User.class));
 		setMsg(result);
 		return Action.SUCCESS;
 	}
 	
+	//查找所有用户就是管理员首页显示的东西
+	public String findUser(){
+		String result = getAdminUserService().getUser(getPage());
+		setMsg(result);
+		return Action.SUCCESS;
+	}
 	
 	
 	
