@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link rel="stylesheet" href="./statics/css/bootstrap.css">
-	    <link rel="stylesheet" href="./statics/css/bootstrap-theme.min.css">
-	    <link rel="stylesheet" href="./statics/css/angular-material.css">
-	    <link rel="stylesheet" href="./statics/css/login/signin.css">
-	    <link rel="stylesheet" href="./statics/css/style.css"/>
-	    <link rel="stylesheet" href="./statics/css/blog.css">
-        <title>问卷调查</title>
-    </head>
-    <body>
-    <div class="page-header"></div>
-        <div id="container" class="container">
-            <form action="" id="addUser" method="post">
+  <head>
+    <title>大连民族学院问卷系统</title>
+	
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  	<link href="http://v3.bootcss.com/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="http://v3.bootcss.com/examples/offcanvas/offcanvas.css" rel="stylesheet">
+    <link rel="stylesheet" href="./statics/css/bootstrap.css">
+    <link rel="stylesheet" href="./statics/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="./statics/css/angular-material.css">
+    <link rel="stylesheet" href="./statics/css/login/signin.css">
+    <link rel="stylesheet" href="./statics/css/style.css"/>
+    <link rel="stylesheet" href="./statics/css/blog.css">
+  </head>
+  
+  <body>
+  	<div class="page-header"></div>
+  	<div id="container" class="container">
+  			<form action="" id="updateUser" method="post">
                 <div class="panel panel-default">
-                 <div class="panel-heading">用户添加</div>
+                 <div class="panel-heading">修改用户信息</div>
                 <table class="table" >
                     <thead></thead>
                     <tbody>
                         <tr>
                             <th>姓名</th>
-                            <th><input type="text" id="username" name="username" required>*</th>
+                            <th><input type="text" id="username" name="username" style='width:150px;' required></th>
                         </tr>
                         <tr>
                           <th>性别</th>
@@ -29,17 +33,29 @@
                           	<select id="sex" name="sex" style="width:150px;">
                           		<option value="man">男</option>
                           		<option value="woman">女</option>
-                          	</select>*
+                          	</select>
                           </th>
                        </tr>
                         <tr>
                             <th>学号/工号</th>
-                            <th><input type="text" id="account" name="account" required>*</th>
+                            <th><input type="text" id="account" name="account" style='width:150px;' readonly="readonly"></th>
                          </tr>
                         <tr>
-                          <th>密码</th>
-                          <th><input type="password" id="password" name="password" required>*</th>
+                          <th><a href="javascript:void(0);" onclick="updatePassword()">修改密码可选</a></th>
+                          <th><input id="password" name="password" type="hidden" style='width:150px;'  placeholder="新密码" required></th>
                        </tr>
+                       <tr>
+                            <th>学院</th>
+                            <th ><div id="college_f"></div></th>
+                         </tr>
+                         <tr>
+                            <th>专业</th>
+                            <th><div id="professional_f"></div></th>
+                         </tr>
+                         <tr>
+                            <th>班级</th>
+                            <th><div id="class_f"></div></th>
+                         </tr>
                        <tr>
                           <th>民族</th>
                           <th>
@@ -100,17 +116,20 @@
 								<option value="德昂族">德昂族</option>
 								<option value="独龙族">独龙族</option>
 								<option value="基诺族">基诺族</option>
-							</select>*
+							</select>
                           </th>
                        </tr>
                     </tbody>
                 </table>
               </div>
-                <input class='btn btn-default' type="button" value="确定" onclick="return check()">
-                <input class='btn btn-default' type="reset" value="重置">
-                <div id="msg"></div>
+              <input class='btn btn-default' type="button" value="确定" onclick="return check()">
+              <input class='btn btn-default' type="reset" value="重置">
             </form>
-            <script type="text/javascript" src="./statics/js/jQuery/jquery.js"></script>
-            <script type="text/javascript" src="./statics/js/jQuery/jquery.form.js"></script>
-  			<script type="text/javascript" src="./statics/js/admin/register.js"></script>
-         </div>
+            <div id="msg"></div>
+  	</div>
+  </body>
+  <script type="text/javascript" src="./statics/js/jQuery/jquery.js"></script>
+  <script type="text/javascript" src="./statics/js/jQuery/jquery.form.js"></script>
+  <script type="text/javascript" src="./statics/js/jQuery/jquery.json.js"></script>
+  <script type="text/javascript" src="./statics/js/admin/updateUser.js"></script>
+</html>

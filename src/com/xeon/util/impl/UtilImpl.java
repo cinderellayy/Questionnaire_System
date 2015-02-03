@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -61,4 +62,21 @@ public class UtilImpl implements Util{
 		}
 	}
 
+	/**
+	 * 防止sql注入的
+	 */
+	@Override
+	public String sqlInsert(String str) {
+		// TODO Auto-generated method stub
+		str = str.replaceAll("([';])+|(--)+", "");
+		return str;
+	}
+
+	//校验数据是否合法针对sql注入
+	@Override
+	public boolean checkStr(String str) {
+		// TODO Auto-generated method stub
+		return Pattern.matches(".*([';]+|(--)+).*", str);
+	}
+	
 }

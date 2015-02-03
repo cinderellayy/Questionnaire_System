@@ -47,6 +47,10 @@ public class test {
 		}
 		//System.out.println(JSONObject.fromObject(data).toString());
 */
-	System.out.println((29/10)+1);	
+	
+		double d1 = 29;
+		double d2 = 10;
+		//System.out.println(Integer.p(d1/d2));
+		System.out.println(((0/10)+1));	
 	}
 }

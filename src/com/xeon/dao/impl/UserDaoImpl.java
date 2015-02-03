@@ -31,7 +31,7 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao{
 	@Override
 	public UserModel getFromAccount(String account) throws Exception {
 		// TODO Auto-generated method stub
-		List<UserModel> list = (List<UserModel>) getHibernateTemplate().find("from UserModel user where user.account = ?",account);
+		List<UserModel> list = (List<UserModel>) getHibernateTemplate().find("from UserModel user where user.account = ? and user.exist = false",account);
 		for(UserModel user : list){
 			return user;
 		}
@@ -44,13 +44,19 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao{
 		return getHibernateTemplate().get(UserModel.class, id);
 	}
 
+	/**
+	 * 查询的时候只查找没有被删除的人
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserModel> get() throws Exception {
 		// TODO Auto-generated method stub
-		return getHibernateTemplate().find("from UserModel");
+		return getHibernateTemplate().find("from UserModel user where user.exist = false");
 	}
 
+	/**
+	 * 返回记录数
+	 */
 	@Override
 	public int getNumberOfUser() throws Exception {
 		// TODO Auto-generated method stub

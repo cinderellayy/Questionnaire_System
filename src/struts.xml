@@ -85,15 +85,28 @@
 			</action>
 			
 			<!-- 管理员功能的跳转 -->
-			<action name="admin*" class="com.xeon.action.JumpAction" method="admin{1}">
+			<action name="admin*" class="jump" method="admin{1}">
 				<interceptor-ref name="filterForAdmin"/>
 				<!-- 用于管理员的跳转 -->
 				<result name="admin">/statics/html/admin/${logicView}.html</result>
 			</action>
-			
+			<action name="updateUser" class="jump" method="adminUpdateUser">
+				<interceptor-ref name="filterForAdmin"/>
+				<result name="updateUser">/statics/html/admin/updateUser.html</result>
+			</action>
 			<!-- 获取存在session中msg的信息也就是错误提示信息 -->
 			<action name="msg" class="msgAction">
 				<interceptor-ref name="mydefault"/>
+				<result type="json">
+					<param name="noCache">true</param>
+					<param name="contentType">text/html</param>
+					<param name="root">msg</param>
+				</result>
+			</action>
+			
+			<!-- 辅助用于获取在配置文件中的学校专业信息 -->
+			<action name="*information" class="auxiliaryAction" method="{1}">
+				<interceptor-ref name="filterForAdmin"/>
 				<result type="json">
 					<param name="noCache">true</param>
 					<param name="contentType">text/html</param>

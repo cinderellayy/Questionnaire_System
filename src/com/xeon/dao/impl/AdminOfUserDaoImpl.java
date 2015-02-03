@@ -49,7 +49,7 @@ public class AdminOfUserDaoImpl extends HibernateDaoSupport implements AdminOfUs
 	@Override
 	public UserModel getUserByAccount(String account) throws Exception {
 		// TODO Auto-generated method stub
-		List<UserModel> list = getHibernateTemplate().find("from UserModel user where user.account=?",account);
+		List<UserModel> list = getHibernateTemplate().find("from UserModel user where user.account=? and user.exist = false",account);
 		for(UserModel user : list){
 			return user;
 		}
@@ -59,10 +59,11 @@ public class AdminOfUserDaoImpl extends HibernateDaoSupport implements AdminOfUs
 	/**
 	 * 根据条件查找，就是按给定条件查找学生
 	 * 这个方法可能不稳定
+	 * 经过测试
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<UserModel> getUserByRequirement(final String[] data,final int beginIndex,final int endIndex) throws Exception {
+	public List<UserModel> getUserByRequirement(final String[] data,final int beginIndex) throws Exception {
 		// TODO Auto-generated method stub
 		return getHibernateTemplate().executeFind(new HibernateCallback<List<UserModel>>() {
 
@@ -70,12 +71,9 @@ public class AdminOfUserDaoImpl extends HibernateDaoSupport implements AdminOfUs
 		public List<UserModel> doInHibernate(Session arg0)
 				throws HibernateException, SQLException {
 			// TODO Auto-generated method stub
-			//简单的防止sql注入
-			if(data[0].trim().split("\"").length > 0){
-				return null;
-			}
-			String hql = "from UserModel user where user."+data[0].trim()+" =:param";
-			Query q = arg0.createQuery(hql).setString("param", data[1].trim()).setFirstResult(0).setMaxResults(10);
+			String hql = "from UserModel user where user.exist = false and user."+data[0].trim()+" =:param";
+			//从下下标beginIndex开始取，每次做多取10个结果
+			Query q = arg0.createQuery(hql).setString("param", data[1].trim()).setFirstResult(beginIndex).setMaxResults(10);
 			return q.list();
 		}
 		
@@ -87,7 +85,7 @@ public class AdminOfUserDaoImpl extends HibernateDaoSupport implements AdminOfUs
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<UserModel> getUser(final int beginIndex,final int endIndex) throws Exception {
+	public List<UserModel> getUser(final int beginIndex) throws Exception {
 		// TODO Auto-generated method stub
 		return getHibernateTemplate().executeFind(new HibernateCallback<List<UserModel>>() {
 
@@ -95,7 +93,7 @@ public class AdminOfUserDaoImpl extends HibernateDaoSupport implements AdminOfUs
 		public List<UserModel> doInHibernate(Session arg0)
 				throws HibernateException, SQLException {
 			// TODO Auto-generated method stub
-			Query q = arg0.createQuery("from UserModel user").setFirstResult(beginIndex).setMaxResults(endIndex);
+			Query q = arg0.createQuery("from UserModel user where user.exist = false").setFirstResult(beginIndex).setMaxResults(10);
 			return q.list();
 		}
 		

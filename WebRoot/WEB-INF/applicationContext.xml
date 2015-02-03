@@ -97,6 +97,9 @@
     	<property name="answerDao" ref="answerDao"/>
     	<property name="util" ref="util"/>
     </bean>
+    <bean id="auxiliaryService" class="com.xeon.service.impl.AuxiliaryServiceImpl">
+    	<property name="util" ref="util"/>
+    </bean>
     <!-- 定义action -->
     <!-- 登陆相关 -->
     <bean id="LogAction" class="com.xeon.action.LogAction" scope="prototype">
@@ -109,10 +112,17 @@
     <!-- 管理员管理用户相关 -->
     <bean id="adminAction" class="com.xeon.action.AdminAction" scope="prototype">
     	<property name="adminUserService" ref="adminUserService"/>
+    	<property name="util" ref="util"/>
+    </bean>
+    <bean id="auxiliaryAction" class="com.xeon.action.AuxiliaryAction" scope="prototype">
+    	<property name="util" ref="util"/>
+    	<property name="auxiliaryService" ref="auxiliaryService"/>
     </bean>
  
-   
-   
+   <!-- 跳转功能 -->
+   <bean id="jump" class="com.xeon.action.JumpAction" scope="prototype">
+   		<property name="util" ref="util"/>
+   </bean>
    
 </beans>
 

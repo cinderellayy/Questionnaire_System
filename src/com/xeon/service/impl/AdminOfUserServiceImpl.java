@@ -66,12 +66,16 @@ public class AdminOfUserServiceImpl implements AdminOfUserService{
 	public String getUserByAccount(String account) {
 		// TODO Auto-generated method stub
 		try{
+			Util util = getUtil();
+			if(util.checkStr(account)){
+				return "输入的数据不合法";
+			}
 			UserModel user = getAdminUserDao().getUserByAccount(account);
 			String result = new Gson().toJson(user);
 			return getUtil().encode(result);
 		}catch(Exception e){
 			e.printStackTrace();
-			return null;
+			return "查找失败";
 		}
 	}
 	
@@ -79,6 +83,7 @@ public class AdminOfUserServiceImpl implements AdminOfUserService{
 	 * 地下涉及到返回list的都是采用了分页查询
 	 * 第一个参数表示分页查询开始下表
 	 * 第二个参数表示每次查询返回的最多数目
+	 * @param beginIndex是数据库开始取数据的下标
 	 * 做加密处理
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -86,12 +91,26 @@ public class AdminOfUserServiceImpl implements AdminOfUserService{
 	public String getUserByRequirement(String requirement, String data,int page) {
 		// TODO Auto-generated method stub
 		//开始下表是要计算的，也就是参数中现在用"0"表示的那个参数
-		
+		Util util = getUtil();
+		if(util.checkStr(requirement) || util.checkStr(data)){
+			return "输入的数据不合法";
+		}
 		try{
-			List<UserModel> list = getAdminUserDao().getUserByRequirement(new String[]{requirement,data},0,getUserDao().getNumberOfUser());
+			//记录中数据能分页的最大页码
+			int maxPage = (getUserDao().getNumberOfUser()/10)+1;
+			//服务器端再次进行校验
+			if(page > maxPage){
+				page = maxPage;
+			}
+			if(page < 1){
+				page = 1;
+			}
+			int begingIndex = (page - 1)*10;
+			List<UserModel> list = getAdminUserDao().getUserByRequirement(new String[]{requirement,data},begingIndex);
 			Map map = new HashMap();
 			map.put("list_user", list);
-			map.put("page_number", getUserDao().getNumberOfUser()%10);
+			//获取可以分页的总页数
+			map.put("page_number", maxPage);
 			String result = new Gson().toJson(map);
 			//其实也不是什么md5加密什么的，就只是一个简单字符转换；
 			return getUtil().encode(result);
@@ -100,15 +119,28 @@ public class AdminOfUserServiceImpl implements AdminOfUserService{
 			return "查找失败";
 		}
 	}
+	/**
+	 * 由于记录少，先将分页限制为1
+	 * 2015-2-3 16:13 已修改回来
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public String getUser(int page) {
 		// TODO Auto-generated method stub
 		try{
-			List<UserModel> list = getAdminUserDao().getUser(0,getUserDao().getNumberOfUser());
+			int maxPage = (getUserDao().getNumberOfUser()/10)+1;
+			//服务器端再次进行校验
+			if(page > maxPage){
+				page = maxPage;
+			}
+			if(page < 1){
+				page = 1;
+			}
+			int begingIndex = (page - 1)*10;
+			List<UserModel> list = getAdminUserDao().getUser(begingIndex);
 			Map map = new HashMap();
 			map.put("list_user", list);
-			map.put("page_number", (getUserDao().getNumberOfUser()/10+1));
+			map.put("page_number", maxPage);
 			String result = new Gson().toJson(map);
 			//其实也不是什么md5加密什么的，就只是一个简单字符转换；
 			return getUtil().encode(result);
@@ -147,6 +179,10 @@ public class AdminOfUserServiceImpl implements AdminOfUserService{
 	@Override
 	public String deleteUserByAccount(String account) {
 		// TODO Auto-generated method stub
+		Util util = getUtil();
+		if(util.checkStr(account)){
+			return "输入的数据不合法";
+		}	
 		try{
 			UserModel user = getAdminUserDao().getUserByAccount(account);
 			user.setExist(true);
@@ -168,8 +204,12 @@ public class AdminOfUserServiceImpl implements AdminOfUserService{
 	@Override
 	public String deleteUserByRequirement(String requirement, String data) {
 		// TODO Auto-generated method stub
+		Util util = getUtil();
+		if(util.checkStr(requirement) || util.checkStr(data)){
+			return "输入的数据不合法";
+		}
 		try{
-			List<UserModel> list_user = getAdminUserDao().getUserByRequirement(new String[]{requirement,data},0,getUserDao().getNumberOfUser());
+			List<UserModel> list_user = getAdminUserDao().getUserByRequirement(new String[]{requirement,data},0);
 			for(UserModel user : list_user){
 				user.setExist(true);
 				//首先将用户表中此类用户删除标记设置为true表示已经删除
@@ -222,6 +262,11 @@ public class AdminOfUserServiceImpl implements AdminOfUserService{
 			/*UserModel userModel = getAdminUserDao().getUserById(user.getId());
 			userModel = user;
 			getAdminUserDao().update(userModel);*/
+			//数据校验
+			Util util = getUtil();
+			if(util.checkStr(user.getUsername()) || util.checkStr(user.getNation()) || util.checkStr(user.getSex())){
+				return "输入的数据不合法";
+			}
 			getAdminUserDao().update(user);
 			return "更新成功";
 		}catch(Exception e){
@@ -275,11 +320,16 @@ public class AdminOfUserServiceImpl implements AdminOfUserService{
 	public String saveUser(User user) {
 		// TODO Auto-generated method stub
 		String account = user.getAccount();
+		//数据校验
 		try{
 			Integer.parseInt(account);
 			if(account.length() > 10 || account.length() < 8){
 			//	System.out.println("输入的学号/账号不合法");
 				return "输入的学号/账号不合法,只能输入8~10数字";
+			}
+			Util util = getUtil();
+			if(util.checkStr(user.getUsername()) || util.checkStr(user.getNation()) || util.checkStr(user.getSex())){
+				return "输入的数据不合法";
 			}
 			//System.out.println("校验成功");
 		}catch(Exception e){
