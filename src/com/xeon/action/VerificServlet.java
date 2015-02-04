@@ -83,7 +83,7 @@ public class VerificServlet extends HttpServlet {
 	 * 生成数字
 	 *
 	 */
-	//难度等级
+	//难度等级，是否可以重复
 	public enum SecurityCodeLevel {Simple,Medium,Hard};
 	public static String getSecurityCode(int length,SecurityCodeLevel level,boolean isCanRepeat){
         int len=length;//4
@@ -114,8 +114,11 @@ public class VerificServlet extends HttpServlet {
             }
         }else{
             for(int i=0;i<result.length;i++){
+            	//取0~字典长度范围
                 int r=(int)(Math.random()*n);
                 result[i]=codes[r];
+                //将每次之后的最后一个赋值给取出的变量，再删除最后一个，这就可以保证不会出项重复
+                //但如此做会使字典受损
                 codes[r]=codes[n-1];
                 n--;
             }
