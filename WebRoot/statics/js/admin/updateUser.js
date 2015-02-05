@@ -2,16 +2,15 @@
 var user = new Object();
 window.onload = function(){
 	$.post("updateFinduser.action",function(resultData,status){
-		var data = decodeURIComponent(resultData);
-		data = data.substring(1, data.length-1);
+		//base64解码
+		var data = base64decode(resultData);
 		user =  $.parseJSON(data); 
 		$("#username").val(user.username);
 		$("#sex").val(user.sex);
 		$("#account").val(user.account);
 		$("#nation").val(user.nation);
 		$.post("collegeinformation.action",function(resultData,status){
-			var data = decodeURIComponent(resultData);
-			data = data.substring(1, data.length-1);
+			var data = base64decode(resultData);
 			var college = eval("("+data+")");
 			var select = "<select id='college' onchange='jump(0)' style='width:150px;'>";
 			var option = "<option value='"+user.college+"' selected='selected'>"+user.college+"</option>";
@@ -38,8 +37,7 @@ function jump(type) {
 function professional() {
 	var data1 = "data="+$("#college").val();
 	$.post("professionalinformation.action",data1,function(responseData,status){
-		var data = decodeURIComponent(responseData);
-		data = data.substring(1, data.length-1);
+		var data = base64decode(responseData);
 		var professional = $.parseJSON(data);
 		var select = "<select id='professional' onchange='jump(1)' style='width:150px;'>";
 		var option = "";
@@ -66,8 +64,9 @@ function professional() {
 function studentClass() {
 	var data1 = "data="+$("#professional").val();
 	$.post("studentClassinformation.action",data1,function(responseData,status){
-		var data = decodeURI(responseData);
-		data = data.substring(2, data.length-2);
+		var data = base64decode(responseData);
+		//这么做的元婴是为了能将"num"转换为int
+		data = data.substring(1, data.length-1);
 		var select = "<select id='studentClass' style='width:150px;'>";
 		var option = "";
 		var length = parseInt(data);
@@ -117,7 +116,7 @@ function check() {
 	}
 	var updateUser = new userModel(user.id,$("#username").val(),user.account,password,user.role,$("#college").val(),$("#professional").val(),user.grade,$("#studentClass").val(),$("#nation").val(), $("#sex").val());
 	var jsonData =  $.toJSON(updateUser);
-	jsonData = encodeURI(jsonData);
+	jsonData = base64encode(jsonData);
 	$.ajax({
 		cache:false,
 		type:"POST",

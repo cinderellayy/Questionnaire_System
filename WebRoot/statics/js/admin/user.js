@@ -44,14 +44,15 @@ function getData(page) {
 	var data = "page="+page;
 	$.getJSON("finduser.action",data, function(resultData) {
 		//还原编码
-		var data = decodeURIComponent(resultData);
+		var data = base64decode(resultData);
+		//data = utf8to16(data);
 		//调用eval函数
 		var obj = eval("(" +data + ")");
 		//遍历list_user数组
 		var body = "";
 		//each就是遍历
-		var sex = "男";
 		$.each(obj.list_user,function(i,item){
+				var sex = "男";
 				if(item.sex == "woman"){
 					sex = "女";
 				}

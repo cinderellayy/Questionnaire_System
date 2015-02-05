@@ -1,9 +1,10 @@
 package com.xeon.util.impl;
 
+import it.sauronsoftware.base64.Base64;
+
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.util.regex.Pattern;
 
@@ -49,26 +50,21 @@ public class UtilImpl implements Util{
 		}
 	}
 
+	//base64加密
 	@Override
 	public String encode(String result) {
 		// TODO Auto-generated method stub
-		try {
-			result = URLEncoder.encode(result,"utf-8");
-			result = result.replace("\\+", "%20");
-			return result;
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+		return Base64.encode(result,"utf-8");
 	}
 
+	//base64解密
+	//解密之后进行url解密
 	@Override
 	public String decode(String str) {
 		// TODO Auto-generated method stub
 		try {
-			str = URLDecoder.decode(str,"utf-8");
-			return str;
+			str = Base64.decode(str,"UTF-8");
+			return URLDecoder.decode(str,"utf-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

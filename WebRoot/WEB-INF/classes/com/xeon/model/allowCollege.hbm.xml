@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping 
+	package="com.xeon.model">
+	<class name="AllowCollege" table="poll_allow_college" dynamic-insert="true" dynamic-update="true">
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		<property name="allowCollegeName" type="string" not-null="true"/>
+		<many-to-one name="poll" class="PollModel">
+			<column name="poll_id"/>
+		</many-to-one>
+	</class>
+</hibernate-mapping>

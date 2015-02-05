@@ -11,6 +11,8 @@ import java.util.TreeSet;
  * @param poll_description 问卷描述 可选
  * @param poll_upload_time 问卷上传时间 不为空
  * @param poll_end_time 问卷结束时间 不为空
+ * @param author 问卷做责
+ * @param allowCollege 允许专业列表
  * @param need 指示本问卷是否必须完成
  * @param exist 指示本问卷是否被删除
  * @param quesionModel 本套问卷所包含的题目集合
@@ -23,9 +25,14 @@ public class PollModel {
 	private String poll_description;
 	private Date poll_upload_time;
 	private Date poll_end_time;
+	private String poll_author;
 	private boolean need;
 	private boolean exist;
+	private SortedSet<AllowCollege> allowCollege = new TreeSet<AllowCollege>();
 	private SortedSet<QuestionModel> questionModel = new TreeSet<QuestionModel>();
+	public PollModel(){
+		this.need = true;
+	}
 	public int getId() {
 		return id;
 	}
@@ -37,6 +44,12 @@ public class PollModel {
 	}
 	public void setPoll_name(String poll_name) {
 		this.poll_name = poll_name;
+	}
+	public String getPoll_author() {
+		return poll_author;
+	}
+	public void setPoll_author(String poll_author) {
+		this.poll_author = poll_author;
 	}
 	public String getPoll_description() {
 		return poll_description;
@@ -73,6 +86,12 @@ public class PollModel {
 	}
 	public void setQuestionModel(SortedSet<QuestionModel> questionModel) {
 		this.questionModel = questionModel;
+	}
+	public SortedSet<AllowCollege> getAllowCollege() {
+		return allowCollege;
+	}
+	public void setAllowCollege(SortedSet<AllowCollege> allowCollege) {
+		this.allowCollege = allowCollege;
 	}
 	
 }

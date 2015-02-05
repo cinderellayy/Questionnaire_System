@@ -29,6 +29,7 @@
 	    		<value>com/xeon/model/QuestionModel.hbm.xml</value>
 	    		<value>com/xeon/model/OptionModel.hbm.xml</value>
 	    		<value>com/xeon/model/AnswerModel.hbm.xml</value>
+	    		<value>com/xeon/model/allowCollege.hbm.xml</value>
     		</list>
     	</property>
     	
