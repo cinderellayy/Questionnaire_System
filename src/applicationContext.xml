@@ -65,12 +65,26 @@
     <bean id="userDaoTarger" class="com.xeon.dao.impl.UserDaoImpl">
     	<property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    <bean id="pollDaoTarger" class="com.xeon.dao.impl.PollDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="questionDaoTarger" class="com.xeon.dao.impl.QuestionDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="optionDaoTarger" class="com.xeon.dao.impl.OptionDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="answerDaoTarger" class="com.xeon.dao.impl.AnswerDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="allowCollegeDaoTarger" class="com.xeon.dao.impl.AllowCollegeDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
     <!-- adminUserDaoTarger -->
     <bean id="adminUserDaoTarger" class="com.xeon.dao.impl.AdminOfUserDaoImpl">
     	<property name="sessionFactory" ref="sessionFactory"/>
     </bean>
-    <!-- answerDaoTarger -->
-    <bean id="answerDaoTarger" class="com.xeon.dao.impl.AnswerDaoImpl">
+    <bean id="adminPollDaoTarger" class="com.xeon.dao.impl.AdminOfPollDaoImpl">
     	<property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     
@@ -78,11 +92,27 @@
     <bean id="userDao" parent="transactionBase">
     	<property name="target" ref="userDaoTarger"/>
     </bean>
-    <bean id="adminUserDao" parent="transactionBase">
-    	<property name="target" ref="adminUserDaoTarger"/>
+    <bean id="pollDao" parent="transactionBase">
+    	<property name="target" ref="pollDaoTarger"/>
+    </bean>
+    <bean id="questionDao" parent="transactionBase">
+    	<property name="target" ref="questionDaoTarger"/>
+    </bean>
+    <bean id="optionDao" parent="transactionBase">
+    	<property name="target" ref="optionDaoTarger"/>
     </bean>
     <bean id="answerDao" parent="transactionBase">
     	<property name="target" ref="answerDaoTarger"/>
+    </bean>
+    <bean id="allowCollegeDao" parent="transactionBase">
+    	<property name="target" ref="allowCollegeDaoTarger"/>
+    </bean>
+    <!-- admin专有 -->
+    <bean id="adminUserDao" parent="transactionBase">
+    	<property name="target" ref="adminUserDaoTarger"/>
+    </bean>
+    <bean id="adminPollDao" parent="transactionBase">
+    	<property name="target" ref="adminPollDaoTarger"/>
     </bean>
     
     <!-- 定义servie -->
@@ -98,6 +128,17 @@
     	<property name="answerDao" ref="answerDao"/>
     	<property name="util" ref="util"/>
     </bean>
+    <!-- 管理员管理问卷 -->
+    <bean id="adminPollService" class="com.xeon.service.impl.AdminOfPollServiceImpl">
+    	<property name="util" ref="util"/>
+    	<property name="pollDao" ref="pollDao"/>
+    	<property name="questionDao" ref="questionDao"/>
+    	<property name="optionDao" ref="optionDao"/>
+    	<property name="allowCollegeDao" ref="allowCollegeDao"/>
+    	<property name="answerDao" ref="answerDao"/>
+    	<property name="adminPollDao" ref="adminPollDao"/>
+    </bean>
+    <!-- 辅助服务 -->
     <bean id="auxiliaryService" class="com.xeon.service.impl.AuxiliaryServiceImpl">
     	<property name="util" ref="util"/>
     </bean>
@@ -113,6 +154,7 @@
     <!-- 管理员管理用户相关 -->
     <bean id="adminAction" class="com.xeon.action.AdminAction" scope="prototype">
     	<property name="adminUserService" ref="adminUserService"/>
+    	<property name="adminPollService" ref="adminPollService"/>
     	<property name="util" ref="util"/>
     </bean>
     <bean id="auxiliaryAction" class="com.xeon.action.AuxiliaryAction" scope="prototype">

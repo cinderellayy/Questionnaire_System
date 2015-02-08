@@ -8,6 +8,7 @@ package com.xeon.model;
  */
 public class AllowCollege implements Comparable<AllowCollege>{
 	private int id;
+	private int allowCollege_id;
 	private String allowCollegeName;
 	private PollModel poll;
 	public PollModel getPoll() {
@@ -22,6 +23,12 @@ public class AllowCollege implements Comparable<AllowCollege>{
 	public void setId(int id) {
 		this.id = id;
 	}
+	public int getAllowCollege_id() {
+		return allowCollege_id;
+	}
+	public void setAllowCollege_id(int allowCollege_id) {
+		this.allowCollege_id = allowCollege_id;
+	}
 	public String getAllowCollegeName() {
 		return allowCollegeName;
 	}
@@ -31,6 +38,6 @@ public class AllowCollege implements Comparable<AllowCollege>{
 	@Override
 	public int compareTo(AllowCollege o) {
 		// TODO Auto-generated method stub
-		return o.getId();
+		return o.getAllowCollege_id();
 	}
 }

@@ -8,6 +8,7 @@
 		<id name="id">
 			<generator class="native"/>
 		</id>
+		<property name="allowCollege_id" type="integer" not-null="true"/>
 		<property name="allowCollegeName" type="string" not-null="true"/>
 		<many-to-one name="poll" class="PollModel">
 			<column name="poll_id"/>

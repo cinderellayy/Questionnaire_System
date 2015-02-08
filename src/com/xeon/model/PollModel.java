@@ -1,6 +1,5 @@
 package com.xeon.model;
 
-import java.sql.Date;
 import java.util.SortedSet;
 import java.util.TreeSet;
 /**
@@ -23,8 +22,8 @@ public class PollModel {
 	private int id;
 	private String poll_name;
 	private String poll_description;
-	private Date poll_upload_time;
-	private Date poll_end_time;
+	private String poll_upload_time;
+	private String poll_end_time;
 	private String poll_author;
 	private boolean need;
 	private boolean exist;
@@ -57,16 +56,16 @@ public class PollModel {
 	public void setPoll_description(String poll_description) {
 		this.poll_description = poll_description;
 	}
-	public Date getPoll_upload_time() {
+	public String getPoll_upload_time() {
 		return poll_upload_time;
 	}
-	public void setPoll_upload_time(Date poll_upload_time) {
+	public void setPoll_upload_time(String poll_upload_time) {
 		this.poll_upload_time = poll_upload_time;
 	}
-	public Date getPoll_end_time() {
+	public String getPoll_end_time() {
 		return poll_end_time;
 	}
-	public void setPoll_end_time(Date poll_end_time) {
+	public void setPoll_end_time(String poll_end_time) {
 		this.poll_end_time = poll_end_time;
 	}
 	public boolean isNeed() {

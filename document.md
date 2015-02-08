@@ -17,7 +17,7 @@
         2).能输出错误提示信息
         3).异步刷新验证码
         4).判断顺序 验证码->用户名->密码
-    2.添加用户
+    2.关于用户功能(admin)
         1).用户逐一添加与用户的批量添加
         2).根据用户的类别删除、修改、查找，类别是：
             名族、学院、专业、年级、班级（也就是可以根据hql语句来更新）
@@ -35,19 +35,38 @@
         12).对用户输入的每一个数据进行校验，防止非法数据
         13).修改用户时暂定不能修改用户账号
         14).用户数据要进行加密，暂定使用base64加密
+    3.关于问卷(admin)
+        1).对于问卷上传时数据格式为json，并且问题表，选项表以及允许学院表除了id之外还需一个表示其是特定问卷/问题的第几个
+        2).问卷的上传，时间使用日历格式，允许学院使用弹出框显示(效果有待加强)
 五、html文档对照
 ----------
     1.admin.html------>管理员首页    2.register.html------>注册用户(管理员权限)
+    3.uploadPoll.html->上传问卷
+    一些注释
+    -------
+        1.在uploadPoll.html中，deleteOption()是删除选项的意思，包含题目和选线，0表示删除单选选项 1表示删除多选选项 2表示删除题目
 六、数据库设计
 -------------
     1.每张表中 exist 表示是否被删除 false表示存在 true表示不存在已被删除
     2.用户表(UserModel)
-        username 用户名        account 学号/工号
-        password 密码          role 用户角色
-        college 学院           professional 专业
-        grade   年级           student_class 班级
-        nation 民族            sex 性别
+        username 用户名                      account 学号/工号
+        password 密码                        role 用户角色
+        college 学院                         professional 专业
+        grade   年级                         student_class 班级
+        nation 民族                          sex 性别
     3.问卷表(PollModel)
+        poll_name 问卷名称                    poll_description 问卷描述
+        poll_author 问卷作者                  poll_upload_time 问卷上传时间
+        poll_end_time 问卷结束时间             need 问卷是否为必须
+    4.问题表(QuestionModel)
+        question_id 标识自身的id              question_name 问题
+        question_type 问题类型                question_can_choise_count 问卷可选个数
+        poll_id 外键与poll相关联
+    5.选项表(OptionModel)
+        option_id 同上                        option_name 选项
+        option_count 被选次数      
+    6.允许学院列表(allowCollegeModel)
+        alloCollege_id 同上                    allowCollegeName 所允许的学院名称
         
 七、待解决疑问
 -------------

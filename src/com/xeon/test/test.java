@@ -1,13 +1,6 @@
 package com.xeon.test;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.Properties;
-import java.util.Set;
-
-import com.xeon.auxiliary.User;
+import java.sql.Date;
 
 public class test {
 	public static void main(String[] args){
@@ -48,9 +41,6 @@ public class test {
 		//System.out.println(JSONObject.fromObject(data).toString());
 */
 	
-		double d1 = 29;
-		double d2 = 10;
-		//System.out.println(Integer.p(d1/d2));
-		System.out.println(((0/10)+1));	
+		System.out.println(new Date(new java.util.Date().getTime()).toString());	
 	}
 }

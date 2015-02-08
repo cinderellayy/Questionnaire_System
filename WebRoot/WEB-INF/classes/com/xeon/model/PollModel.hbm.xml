@@ -12,8 +12,8 @@
 		<property name="poll_name" type="string" not-null="true" unique="true"/>
 		<property name="poll_description" type="string" not-null="true"/>
 		<property name="poll_author" type="string" not-null="true"/>
-		<property name="poll_upload_time" type="date" not-null="true"/>
-		<property name="poll_end_time" type="date" not-null="true"/>
+		<property name="poll_upload_time" type="string" not-null="true"/>
+		<property name="poll_end_time" type="string" not-null="true"/>
 		<property name="need" type="boolean">
 			<column name="need" not-null="true" default="true"/>
 		</property>
@@ -21,11 +21,12 @@
 			<column name="exist" not-null="true" default="false"/>
 		</property>
 		
-		<set name="questionModel" sort="natural" cascade="all" inverse="true" lazy="false">
+		<set name="questionModel" sort="natural" cascade="all" lazy="false">
 			<key column="poll_id"/>
 			<one-to-many class="QuestionModel"/>
 		</set>
-		<set name="allowCollege" sort="natural" cascade="all" inverse="true" lazy="false">
+		<!-- inverse="true"  -->
+		<set name="allowCollege" sort="natural" cascade="all" lazy="false">
 			<key column="poll_id"/>
 			<one-to-many class="AllowCollege"/>
 		</set>

@@ -3,6 +3,7 @@ package com.xeon.model;
  * 
  * @author Agzdjy
  * @param id 逻辑主键
+ * @param option_id 用于标识自身的id
  * @param option_name 选项
  * @param option_count 此选项被选次数 默认为0且不小于0
  * @param quesionModel 此选项所属问题
@@ -11,6 +12,7 @@ package com.xeon.model;
  */
 public class OptionModel implements Comparable<OptionModel>{
 	private int id;
+	private int option_id;
 	private String option_name;
 	private int option_count;
 	private QuestionModel questionModel;
@@ -20,6 +22,12 @@ public class OptionModel implements Comparable<OptionModel>{
 	}
 	public int getId() {
 		return id;
+	}
+	public int getOption_id() {
+		return option_id;
+	}
+	public void setOption_id(int option_id) {
+		this.option_id = option_id;
 	}
 	public void setId(int id) {
 		this.id = id;
@@ -51,6 +59,6 @@ public class OptionModel implements Comparable<OptionModel>{
 	@Override
 	public int compareTo(OptionModel o) {
 		// TODO Auto-generated method stub
-		return o.getId();
+		return o.getOption_id();
 	}
 }

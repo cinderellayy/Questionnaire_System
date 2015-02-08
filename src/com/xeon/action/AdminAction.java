@@ -154,6 +154,17 @@ public class AdminAction {
 		return Action.SUCCESS;
 	}
 	
+	//下面是管理员管理问卷的
+	public String addPoll(){
+		if(getJsonData() == null){
+			setMsg("你可能重复提交了，导致录入失败，提示频繁刷新会导致重复提交");
+			return "upload";
+		}
+		String result = getAdminPollService().save(getUtil().decode(getJsonData()));
+		setMsg(result);
+		return Action.SUCCESS;
+	}
+	
 	
 	
 	

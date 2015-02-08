@@ -8,6 +8,7 @@
 		<id name="id">
 			<generator class="native"/>
 		</id>
+		<property name="option_id" type="integer" not-null="true"/>
 		<property name="option_name" type="string" not-null="true"/>
 		<property name="option_count" type="integer" not-null="true"/>
 		<property name="exist" type="boolean">

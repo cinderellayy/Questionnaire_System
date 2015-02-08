@@ -91,6 +91,7 @@ function studentClass() {
 }
 
 function updatePassword() {
+	//当需要修改密码时显示修改框
 	$("#password").attr("type","password");
 }
 function userModel(id,username,account,password,role,college,professional,grade,student_class,nation,sex) {

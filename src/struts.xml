@@ -83,6 +83,16 @@
 				<!-- <result>/statics/html/admin/user.html</result> -->
 				<!-- <result name=""></result> -->
 			</action>
+			<!-- 管理员管理问卷 -->
+			<action name="*poll" class="adminAction" method="{1}Poll">
+				<interceptor-ref name="filterForAdmin"/>
+				<result name="upload">/statics/html/admin/uploadPoll.html</result>
+				<result type="json">
+					<param name="noCache">true</param>
+					<param name="contentType">text/html</param>
+					<param name="root">msg</param>
+				</result>
+			</action>
 			
 			<!-- 管理员功能的跳转 -->
 			<action name="admin*" class="jump" method="admin{1}">

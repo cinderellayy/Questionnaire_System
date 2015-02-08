@@ -6,6 +6,7 @@ import java.util.TreeSet;
  * 
  * @author Agzdjy
  * @param id 逻辑主键
+ * @param question_id 用于标识自身的id
  * @param quesion_name 问题 唯一 不为空
  * @param question_type 问题类型 如 单选/多选/填空等 不为空
  * @param quesion_choise_count 此问题的选项个数 不为空 不做为数据库键 
@@ -18,6 +19,7 @@ import java.util.TreeSet;
  */
 public class QuestionModel implements Comparable<QuestionModel>{
 	private int id;
+	private int question_id;
 	private String question_name;
 	private String question_type;
 	private int question_choise_count;
@@ -33,6 +35,12 @@ public class QuestionModel implements Comparable<QuestionModel>{
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public int getQuestion_id() {
+		return question_id;
+	}
+	public void setQuestion_id(int question_id) {
+		this.question_id = question_id;
 	}
 	public String getQuestion_name() {
 		return question_name;
@@ -79,7 +87,7 @@ public class QuestionModel implements Comparable<QuestionModel>{
 	@Override
 	public int compareTo(QuestionModel o) {
 		// TODO Auto-generated method stub
-		return o.getId();
+		return o.getQuestion_id();
 	}
 	
 	
